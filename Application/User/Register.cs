@@ -60,10 +60,12 @@ namespace Application.User
                 {
                     DisplayName = request.DisplayName,
                     Email = request.Email,
-                    UserName = request.UserName
+                    UserName = request.UserName,
+                    Role = "admin"
                 };
 
                 var result = await _userManager.CreateAsync(user, request.Password);
+                await _userManager.AddToRoleAsync(user, "Admin");
 
                 if (result.Succeeded)
                 {

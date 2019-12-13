@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
+    [AllowAnonymous]
     public class ValuesController : BaseController
     {
         private readonly DataContext _context;
@@ -25,7 +26,7 @@ namespace Api.Controllers
         //     return new string[] { "value1", "value2" };
         // }
          [HttpGet]
-         [Authorize(Policy = "IsActivityHost")]
+         //[Authorize(Policy = "IsActivityHost")]
         public async Task<ActionResult<IEnumerable<Value>>> Get()
         {
             var values = await _context.Values.ToListAsync();

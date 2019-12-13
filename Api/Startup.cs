@@ -42,6 +42,7 @@ namespace Api
                 options.UseLazyLoadingProxies();
                 options.UseSqlServer(Configuration["Data:ConnectionString"]);
             });
+            services.AddCors();
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
             services.AddMvc(opt =>
@@ -51,14 +52,8 @@ namespace Api
             })
                 .AddNewtonsoftJson()
                 .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Create>());
-            //     services.AddControllers(opt =>
-            // {
-            //     var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            //     opt.Filters.Add(new AuthorizeFilter(policy));
-            // })
-            //     .AddNewtonsoftJson()
-            //     .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Create>());
             services.AddIdentityCore<AppUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>()
                 .AddSignInManager<SignInManager<AppUser>>();
             services.AddAuthorization(opt => 
@@ -67,28 +62,15 @@ namespace Api
                 {
                     policy.Requirements.Add(new IsHostRequirement());
                 });
+                opt.AddPolicy("IsUser", policy =>
+                {
+                    policy.Requirements.Add(new IsUserRequirement());
+                });
             });
+            services.AddTransient<IAuthorizationHandler, IsUserRequirementHandler>();
             services.AddTransient<IAuthorizationHandler, IsHostRequirementHandler>();
             
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
-            // services.AddAuthentication(options =>
-            //     {
-            //     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //     })
-            // .AddJwtBearer(options =>
-            // {
-            //     options.SaveToken = true;
-            //     options.RequireHttpsMetadata = false;
-            //     options.TokenValidationParameters = new TokenValidationParameters
-            //     {
-            //         ValidateIssuerSigningKey = true,
-            //         IssuerSigningKey = key,
-            //         ValidateAudience = false,
-            //         ValidateIssuer = false
-            //     };
-            // });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
                 {
@@ -99,21 +81,19 @@ namespace Api
                         ValidateAudience = false,
                         ValidateIssuer = false,
                     };
-                });
+                });    
             services.AddScoped<IJwtGenerator, JwtGenerator>();
-            services.AddScoped<IUserAccessor, UserAccessor>();
+            services.AddScoped<IUserAccessor, UserAccessor>();   
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ErrorHandlingMiddleware>();
             if (env.IsDevelopment())
             {
-                //app.UseDeveloperExceptionPage();
+              
             }
-            //app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
