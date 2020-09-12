@@ -24,10 +24,13 @@ namespace Api.Controllers
         {
             return await Mediator.Send(new Details.Query{Id = id});
         }
+        // [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<Unit>> Create (Create.Command command)
         {
-            return await Mediator.Send(command);
+            // return await Mediator.Send(command);
+            var activity = await Mediator.Send(command);
+            return Ok(activity);
         }
         [HttpPut("{id}")]
         [Authorize(Policy = "IsActivityHost")]

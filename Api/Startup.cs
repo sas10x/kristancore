@@ -22,6 +22,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using AutoMapper;
 using System;
 using System.Threading.Tasks;
+using Api.SignalR;
 
 namespace Api
 {
@@ -42,9 +43,16 @@ namespace Api
                 options.UseLazyLoadingProxies();
                 options.UseSqlServer(Configuration["Data:ConnectionString"]);
             });
-            services.AddCors();
+            services.AddCors(opt => 
+            {
+	            opt.AddPolicy("CorsPolicy", policy => 
+	            {
+		        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200").AllowCredentials();
+	            });
+            });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
+            services.AddSignalR();
             services.AddMvc(opt =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -81,6 +89,19 @@ namespace Api
                         ValidateAudience = false,
                         ValidateIssuer = false,
                     };
+                    opt.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            var path = context.HttpContext.Request.Path;
+                            if (!string.IsNullOrEmpty(accessToken) && (path.StartsWithSegments("/chat")))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
+                    };
                 });    
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();   
@@ -94,11 +115,20 @@ namespace Api
             }
             app.UseRouting();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            // app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chat");});
             app.UseAuthentication();
             app.UseAuthorization();
+            // app.UseEndpoints(endpoints =>
+            // {
+            //     endpoints.MapControllers();
+            //     endpoints.MapHub<ChatHub>("/chat");
+            //     endpoints.MapFallbackToController("Index", "Fallback");
+            // });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ChatHub>("/chat");
+                // endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

@@ -7,6 +7,7 @@ namespace Domain
     {
         public string DisplayName { get; set; }
         public string Role { get; set; }
+        public string Avatar { get; set; }
         public virtual ICollection<UserActivity> UserActivities { get; set; }
     }
 }
