@@ -114,7 +114,7 @@ namespace Api
               
             }
             app.UseRouting();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            app.UseCors("CorsPolicy");
             // app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chat");});
             app.UseAuthentication();
             app.UseAuthorization();

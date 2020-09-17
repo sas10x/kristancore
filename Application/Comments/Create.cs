@@ -16,7 +16,7 @@ namespace Application.Comments
         public class Command : IRequest<CommentDto>
         {
             public string Body { get; set; }
-            public Guid ActivityId { get; set; }
+            public Guid Activity { get; set; }
             public string Username { get; set; }
         }
 
@@ -32,7 +32,7 @@ namespace Application.Comments
 
             public async Task<CommentDto> Handle(Command request, CancellationToken cancellationToken)
             {
-                var activity = await _context.Activities.FindAsync(request.ActivityId);
+                var activity = await _context.Activities.FindAsync(request.Activity);
 
                 if (activity == null)
                     throw new RestException(HttpStatusCode.NotFound, new {Activity = "Not found"});
