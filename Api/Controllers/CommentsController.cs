@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Application.Comments;
@@ -9,10 +10,10 @@ namespace Api.Controllers
     public class CommentsController : BaseController
     {
         [AllowAnonymous]
-        [HttpGet]
-        public async Task<ActionResult<List<CommentDto>>> List()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<CommentDto>>> List(Guid id)
         {
-            return await Mediator.Send(new List.Query());
+            return await Mediator.Send(new List.Query{Id = id});
         }
     }
 }

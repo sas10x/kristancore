@@ -23,6 +23,10 @@ using AutoMapper;
 using System;
 using System.Threading.Tasks;
 using Api.SignalR;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Api
 {
@@ -53,6 +57,11 @@ namespace Api
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddAutoMapper(typeof(List.Handler));
             services.AddSignalR();
+            services.Configure<FormOptions>(o => {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
             services.AddMvc(opt =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
@@ -113,17 +122,16 @@ namespace Api
             {
               
             }
+            // app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+             });
             app.UseRouting();
             app.UseCors("CorsPolicy");
-            // app.UseSignalR(routes => { routes.MapHub<ChatHub>("/chat");});
             app.UseAuthentication();
             app.UseAuthorization();
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapControllers();
-            //     endpoints.MapHub<ChatHub>("/chat");
-            //     endpoints.MapFallbackToController("Index", "Fallback");
-            // });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

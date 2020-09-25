@@ -9,5 +9,6 @@ namespace Domain
         public string Role { get; set; }
         public string Avatar { get; set; }
         public virtual ICollection<UserActivity> UserActivities { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }
