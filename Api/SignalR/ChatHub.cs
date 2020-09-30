@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Application.Comments;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Api.SignalR
@@ -15,6 +16,7 @@ namespace Api.SignalR
         {
             _mediator = mediator;
         }
+        [Authorize]
         public async Task SendComment(Create.Command command)
         {
             var username = Context.User?.Claims?.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;

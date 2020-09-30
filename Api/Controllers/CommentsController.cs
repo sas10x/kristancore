@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
+    [Authorize]
     public class CommentsController : BaseController
     {
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<List<CommentDto>>> List(Guid id)
         {

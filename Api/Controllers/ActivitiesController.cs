@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
+    [Authorize]
     public class ActivitiesController : BaseController
     {
-        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<ActivityDto>>> List()
         {
@@ -24,7 +24,6 @@ namespace Api.Controllers
         {
             return await Mediator.Send(new Details.Query{Id = id});
         }
-        // [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<Unit>> Create (Create.Command command)
         {
