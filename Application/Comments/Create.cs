@@ -38,6 +38,7 @@ namespace Application.Comments
                     throw new RestException(HttpStatusCode.NotFound, new {Activity = "Not found"});
 
                 var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == request.Username);
+                // var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetCurrentUsername());
 
                 var comment = new Comment
                 {

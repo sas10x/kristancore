@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Interfaces;
+using AutoMapper;
 using Domain;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -14,22 +15,24 @@ namespace Application.Photos
 {
     public class Add
     {
-        public class Command : IRequest<Domain.Photo>
+        public class Command : IRequest<PhotoDto>
         {
             public IFormFile File { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command, Photo>
+        public class Handler : IRequestHandler<Command, PhotoDto>
         {
             private readonly DataContext _context;
             private readonly IUserAccessor _userAccessor;
-            public Handler(DataContext context, IUserAccessor userAccessor)
+            private readonly IMapper _mapper;
+            public Handler(DataContext context, IUserAccessor userAccessor, IMapper mapper)
             {
                 _userAccessor = userAccessor;
                 _context = context;
+                _mapper = mapper;
             }
 
-            public async Task<Photo> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<PhotoDto> Handle(Command request, CancellationToken cancellationToken)
             {
                 var file = request.File;
                 var user = await _context.Users.SingleOrDefaultAsync(x => x.UserName == _userAccessor.GetCurrentUsername());
@@ -50,12 +53,13 @@ namespace Application.Photos
                     var photo = new Photo
                     {
                         Url = imgUrl,
+                        Owner = user
                     };
-                    _context.Photos.Add(photo);           
-
+                    _context.Photos.Add(photo);       
+                    user.Avatar = imgUrl;
                     var success = await _context.SaveChangesAsync() > 0;
-
-                    if (success) return photo;
+                    var photoReturn = _mapper.Map<Photo, PhotoDto>(photo);
+                    if (success) return photoReturn;
                     throw new Exception("Problem saving changes");
                 }
                 throw new Exception("No attached file");
