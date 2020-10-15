@@ -27,6 +27,7 @@ using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Application.Profiles;
 
 namespace Api
 {
@@ -114,6 +115,7 @@ namespace Api
                 });    
             services.AddScoped<IJwtGenerator, JwtGenerator>();
             services.AddScoped<IUserAccessor, UserAccessor>();   
+            services.AddScoped<IProfileReader, ProfileReader>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

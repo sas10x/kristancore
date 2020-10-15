@@ -41,7 +41,7 @@ namespace Application.Activities
             {
                 _userAccessor = userAccessor;
                 _context = context;   
-                 _mapper = mapper;
+                _mapper = mapper;
             }
 
             public async Task<ActivityDto> Handle(Command request, CancellationToken cancellationToken)
