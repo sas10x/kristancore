@@ -34,8 +34,10 @@ namespace Application.Activities
                         .Where(follow => follow.Observer.UserName == user.UserName)    
                         .Select(follow => follow.TargetId)   
                         .ToArrayAsync();     
+                    
                 var activities = await _context.Activities
-                    .Where(a => followings.Contains(a.Author.Id))
+                    .Where(a => followings.Contains(a.Author.Id) || a.Author.Id == user.Id)
+                    .OrderBy(x => x.UpdatedAt)
                     .ToListAsync();
                 return _mapper.Map<List<Activity>, List<ActivityDto>>(activities);
             }
