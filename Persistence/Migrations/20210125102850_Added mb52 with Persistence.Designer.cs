@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210125102850_Added mb52 with Persistence")]
+    partial class Addedmb52withPersistence
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,39 +162,6 @@ namespace Persistence.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("Domain.Move", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Article")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BUn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Document")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MvT")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Quantity")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SLoc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Site")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Movements");
-                });
-
             modelBuilder.Entity("Domain.Photo", b =>
                 {
                     b.Property<Guid>("Id")
@@ -310,54 +279,6 @@ namespace Persistence.Migrations
                             Id = 3,
                             Name = "Value 103"
                         });
-                });
-
-            modelBuilder.Entity("Domain.Zmpq25b", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ATP")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Article")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BUn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Brand")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Confirm")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gtin")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SLoc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Site")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Unrestricted")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Zmpq25b");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

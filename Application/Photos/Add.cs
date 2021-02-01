@@ -41,8 +41,9 @@ namespace Application.Photos
                 // var photoUploadResult = _photoAccessor.AddPhoto(request.File);
                 if (file.Length > 0)
                 {
-                    // var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var newName = System.Guid.NewGuid().ToString();
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fileType = fileName.Split(".")[1];
+                    var newName = System.Guid.NewGuid().ToString() + "." + fileType;
                     var fullPath = Path.Combine(pathToSave, newName);
                     var dbPath = Path.Combine(folderName, newName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))

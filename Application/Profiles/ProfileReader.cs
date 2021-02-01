@@ -32,7 +32,7 @@ namespace Application.Profiles
                 DisplayName = user.DisplayName,
                 Username = user.UserName,
                 Image = user.Avatar,
-                Photos = user.Photos,
+                // Photos = user.Photos,
     
                 FollowersCount = user.Followers.Count(),
                 FollowingCount = user.Followings.Count(),

@@ -43,6 +43,21 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddImageSharp(
+            //     options =>
+            // {
+            // // You only need to set the options you want to change here
+            // // All properties have been listed for demonstration purposes
+            // // only.
+            //     options.MemoryStreamManager = new RecyclableMemoryStreamManager();
+            //     options.BrowserMaxAge = TimeSpan.FromDays(7);
+            //     options.CacheMaxAge = TimeSpan.FromDays(365);
+            //     options.CachedNameLength = 8;
+            //     options.OnParseCommandsAsync = _ => Task.CompletedTask;
+            //     options.OnBeforeSaveAsync = _ => Task.CompletedTask;
+            //     options.OnProcessedAsync = _ => Task.CompletedTask;
+            //     options.OnPrepareResponseAsync = _ => Task.CompletedTask;
+            // });
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseLazyLoadingProxies();
@@ -135,6 +150,7 @@ namespace Api
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
+            // app.UseImageSharp();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

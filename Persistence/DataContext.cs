@@ -16,6 +16,9 @@ namespace Persistence
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<UserFollowing> Followings { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Zmpq25b> Zmpq25b { get; set; }
+        public DbSet<Move> Movements { get; set; }
         protected override void OnModelCreating (ModelBuilder builder)
         {
             base.OnModelCreating(builder);
