@@ -32,6 +32,11 @@ namespace Api.Controllers
         {
             return await Mediator.Send(new Sap.Query{Barcode = barcode});
         }
+        [HttpGet("find/{search}")]
+        public async Task<ActionResult<List<ItemDto>>> ListSearch(string search)
+        {
+            return await Mediator.Send(new Item.Query{Search = search});
+        }
         [HttpPost]
         public async Task<ActionResult<Unit>> MB51(Movement.Command command)
         {

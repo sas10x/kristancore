@@ -13,33 +13,44 @@ namespace Api.Controllers
     [AllowAnonymous]
     public class ValuesController : BaseController
     {
-        private readonly DataContext _context;
-        public ValuesController(DataContext context)
-        {
-            _context = context;
-        }
+        // private readonly DataContext _context;
+        // public ValuesController(DataContext context)
+        // {
+        //     _context = context;
+        // }
 
         // GET api/values
-        // [HttpGet]
-        // public ActionResult<IEnumerable<string>> Get()
-        // {
-        //     return new string[] { "value1", "value2" };
-        // }
-         [HttpGet]
-         //[Authorize(Policy = "IsActivityHost")]
-        public async Task<ActionResult<IEnumerable<Value>>> Get()
+        [HttpGet]
+        public ActionResult<IEnumerable<string>> Get()
         {
-            var values = await _context.Values.ToListAsync();
-            return Ok(values);
+            var barcode = "978020137962";
+            var kristan = 123;
+            var length = barcode.Length;
+            var isNumeric = int.TryParse("123", out _);
+            if (isNumeric)
+            {
+                kristan = 1;
+            }
+            else {
+                kristan = 2;
+            }
+            return new string[] { kristan.ToString() };
         }
+        //  [HttpGet]
+        //  //[Authorize(Policy = "IsActivityHost")]
+        // public async Task<ActionResult<IEnumerable<Value>>> Get()
+        // {
+        //     var values = await _context.Values.ToListAsync();
+        //     return Ok(values);
+        // }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Value>> Get(int id)
-        {
-            var value = await _context.Values.FindAsync(id);
-            return Ok(value);
-        }
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<Value>> Get(int id)
+        // {
+        //     var value = await _context.Values.FindAsync(id);
+        //     return Ok(value);
+        // }
 
         // POST api/values
         [HttpPost]
