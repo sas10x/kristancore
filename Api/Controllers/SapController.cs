@@ -42,5 +42,26 @@ namespace Api.Controllers
         {
             return await Mediator.Send(command);
         }
+        // [HttpGet("prime")]
+        // public async Task<ActionResult<List<Zmpq25b>>> Prime()
+        // {
+        //     return await Mediator.Send(new Prime.Query ());
+        // }
+        [HttpGet("availability")]
+        public async Task<ActionResult<List<Zmpq25b>>> Analytics()
+        {
+            return await Mediator.Send(new Prime.Query());
+        }
+
+        [HttpPost("material")]
+        public async Task<ActionResult<Unit>> MaterialMaster(AddMaterial.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpPost("stock")]
+        public async Task<ActionResult<Unit>> SoMaster(AddStockx.Command command)
+        {
+            return await Mediator.Send(command);
+        }
     }
 }

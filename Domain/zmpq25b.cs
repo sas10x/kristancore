@@ -2,7 +2,7 @@ namespace Domain
 {
     public class Zmpq25b
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Article { get; set; }
         public string Gtin { get; set; }
         public string Description { get; set; }
