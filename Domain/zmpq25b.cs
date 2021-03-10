@@ -15,6 +15,7 @@ namespace Domain
         public string Brand { get; set; }
         public string Status { get; set; }
         public string Size { get; set; }
+        public string GtrStatus { get; set; }
 
     }
 }

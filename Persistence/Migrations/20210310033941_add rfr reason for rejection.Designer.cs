@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210310033941_add rfr reason for rejection")]
+    partial class addrfrreasonforrejection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -510,12 +512,6 @@ namespace Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArtNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ArticleDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CCodeToBeBilled")
                         .HasColumnType("nvarchar(max)");
 
@@ -555,7 +551,7 @@ namespace Persistence.Migrations
                     b.Property<decimal>("NetTax")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("OrderedQty")
+                    b.Property<int>("OrdQty")
                         .HasColumnType("int");
 
                     b.Property<int>("PgiQty")

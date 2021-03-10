@@ -11,7 +11,7 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class Movement
+    public class AddMb51
     {
         public class Command : IRequest
         {

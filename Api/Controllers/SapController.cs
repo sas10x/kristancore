@@ -63,5 +63,15 @@ namespace Api.Controllers
         {
             return await Mediator.Send(command);
         }
+        [HttpGet("allsales")]
+        public async Task<ActionResult<List<Zmpq25b>>> Sales()
+        {
+            return await Mediator.Send(new ListSales.Query());
+        }
+        [HttpPost("zva05n")]
+        public async Task<ActionResult<Unit>> AddNewZva05n(AddZva05n.Command command)
+        {
+            return await Mediator.Send(command);
+        }
     }
 }

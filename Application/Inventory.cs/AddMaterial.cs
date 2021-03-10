@@ -38,11 +38,11 @@ namespace Application.Inventory
         
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var nfp = await _context.Materials
-                        .Where(sap => sap.Article == request.Article) 
-                        .SingleAsync();
-                if (nfp == null)
-                    throw new RestException(HttpStatusCode.NotFound, new {Material = "Already Exist"});
+                // var nfp = await _context.Materials
+                //         .Where(sap => sap.Article == request.Article) 
+                //         .SingleAsync();
+                // if (nfp == null)
+                //     throw new RestException(HttpStatusCode.NotFound, new {Material = "Already Exist"});
                 
                 var product = new Material
                 {

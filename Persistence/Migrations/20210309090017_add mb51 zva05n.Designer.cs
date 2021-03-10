@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210309090017_add mb51 zva05n")]
+    partial class addmb51zva05n
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,74 +59,6 @@ namespace Persistence.Migrations
                     b.HasIndex("AuthorId");
 
                     b.ToTable("Activities");
-                });
-
-            modelBuilder.Entity("Domain.ActivityMb51", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Article")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Document")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GtrStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("Mb51Id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("Mb51Id");
-
-                    b.ToTable("ActivitiesMb51");
-                });
-
-            modelBuilder.Entity("Domain.ActivityZva05n", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Article")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GtrStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("Zva05nId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("Zva05nId");
-
-                    b.ToTable("ActivitiesZva05n");
                 });
 
             modelBuilder.Entity("Domain.AppUser", b =>
@@ -510,12 +444,6 @@ namespace Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArtNum")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ArticleDescription")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CCodeToBeBilled")
                         .HasColumnType("nvarchar(max)");
 
@@ -555,7 +483,7 @@ namespace Persistence.Migrations
                     b.Property<decimal>("NetTax")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("OrderedQty")
+                    b.Property<int>("OrdQty")
                         .HasColumnType("int");
 
                     b.Property<int>("PgiQty")
@@ -563,9 +491,6 @@ namespace Persistence.Migrations
 
                     b.Property<int>("QtyToDeliv")
                         .HasColumnType("int");
-
-                    b.Property<string>("Rfr")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SLoc")
                         .HasColumnType("nvarchar(max)");
@@ -741,32 +666,6 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.AppUser", "Author")
                         .WithMany()
                         .HasForeignKey("AuthorId");
-                });
-
-            modelBuilder.Entity("Domain.ActivityMb51", b =>
-                {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("Domain.Mb51", "Mb51")
-                        .WithMany()
-                        .HasForeignKey("Mb51Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Domain.ActivityZva05n", b =>
-                {
-                    b.HasOne("Domain.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("AppUserId");
-
-                    b.HasOne("Domain.Zva05n", "Zva05n")
-                        .WithMany()
-                        .HasForeignKey("Zva05nId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Domain.Comment", b =>

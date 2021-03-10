@@ -20,6 +20,10 @@ namespace Persistence
         public DbSet<Zmpq25b> Zmpq25b { get; set; }
         public DbSet<Move> Movements { get; set; }
         public DbSet<Material> Materials { get; set; }
+        public DbSet<Mb51> Mb51 { get; set; }
+        public DbSet<Zva05n> Zva05n { get; set; }
+        public DbSet<ActivityMb51> ActivitiesMb51 { get; set; }
+        public DbSet<ActivityZva05n> ActivitiesZva05n { get; set; }
         protected override void OnModelCreating (ModelBuilder builder)
         {
             base.OnModelCreating(builder);
