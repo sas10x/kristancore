@@ -16,14 +16,23 @@ namespace Application.Inventory
         public class Command : IRequest
         {
             //  public List<Move> Moves { get; set; }
-            public int Id { get; set; }
-            public string Document { get; set; }
+            public string EntryDate { get; set; }
+            public string PstngDate { get; set; }
+            public string Time { get; set; }
+            public string DocDate { get; set; }
+            public string ArtDoc { get; set; }
             public string Article { get; set; }
+            public string ArticleDescription { get; set; }
             public string BUn { get; set; }
-            public string Quantity { get; set; }
+            public decimal Quantity { get; set; }
             public string MvT { get; set; }
             public string Site { get; set; }
             public string SLoc { get; set; }
+            public string Customer { get; set; }
+            public string MvtTypeText { get; set; }
+            public string Name1 { get; set; }
+            public string Username { get; set; }
+            public string GtrStatus { get; set; }
         }
         public class Handler : IRequestHandler<Command>
         {
@@ -44,17 +53,27 @@ namespace Application.Inventory
                 //     sap.ATP = sap.ATP + Int32.Parse(request.Quantity);
                 //     sap.Unrestricted = sap.Unrestricted + Int32.Parse(request.Quantity);
                 // }
-                var movement = new Move
+                var movement = new Mb51
                 {
-                    Document = request.Document,
+                    EntryDate = request.EntryDate,
+                    PstngDate = request.PstngDate,
+                    Time = request.Time,
+                    DocDate = request.DocDate,
+                    ArtDoc = request.ArtDoc,
                     Article = request.Article,
+                    ArticleDescription = request.ArticleDescription,
                     BUn = request.BUn,
                     Quantity = request.Quantity,
-                    MvT = request.MvT,
+                    MvT =  request.MvT,
                     Site = request.Site,
                     SLoc = request.SLoc,
+                    Customer = request.Customer,
+                    MvtTypeText = request.MvtTypeText,
+                    Name1 = request.Name1,
+                    Username = request.Username,
+                    GtrStatus = "pending"
                 };
-                 _context.Movements.Add(movement);
+                 _context.Mb51.Add(movement);
                 var success = await _context.SaveChangesAsync() > 0;
                 if (success) return Unit.Value;
                        throw new Exception("Problem saving changes");

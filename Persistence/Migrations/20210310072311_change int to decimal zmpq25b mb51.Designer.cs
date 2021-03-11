@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210310072311_change int to decimal zmpq25b mb51")]
+    partial class changeinttodecimalzmpq25bmb51
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -271,40 +273,19 @@ namespace Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ArtDoc")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Article")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ArticleDescription")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BUn")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Customer")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DocDate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EntryDate")
+                    b.Property<string>("Document")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GtrStatus")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MvT")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MvtTypeText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PstngDate")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
@@ -314,12 +295,6 @@ namespace Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Site")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Time")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

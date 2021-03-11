@@ -26,10 +26,10 @@ namespace Application.Inventory
             public string ArtNum { get; set; }
             public string ArticleDescription { get; set; }
             public string UoM { get; set; }
-            public int OrderedQty { get; set; }
-            public int ConfQty { get; set; }
-            public int PgiQty { get; set; }
-            public int QtyToDeliv { get; set; }
+            public decimal OrderedQty { get; set; }
+            public decimal ConfQty { get; set; }
+            public decimal PgiQty { get; set; }
+            public decimal QtyToDeliv { get; set; }
             public decimal UnitPrice { get; set; }
             public decimal NetAmt { get; set; }
             public decimal NetTax { get; set; }

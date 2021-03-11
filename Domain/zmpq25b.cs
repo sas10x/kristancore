@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain
 {
     public class Zmpq25b
@@ -9,9 +11,15 @@ namespace Domain
         public string BUn { get; set; }
         public string Site { get; set; }
         public string SLoc { get; set; }
-        public int Unrestricted { get; set; }
-        public int Confirm { get; set; }
-        public int ATP { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Unrestricted { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Confirm { get; set; }
+        
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal ATP { get; set; }
         public string Brand { get; set; }
         public string Status { get; set; }
         public string Size { get; set; }

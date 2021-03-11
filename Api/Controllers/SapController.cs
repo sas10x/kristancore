@@ -58,7 +58,7 @@ namespace Api.Controllers
         {
             return await Mediator.Send(command);
         }
-        [HttpPost("stock")]
+        [HttpPost("zmpq25b")]
         public async Task<ActionResult<Unit>> SoMaster(AddStockx.Command command)
         {
             return await Mediator.Send(command);
@@ -70,6 +70,11 @@ namespace Api.Controllers
         }
         [HttpPost("zva05n")]
         public async Task<ActionResult<Unit>> AddNewZva05n(AddZva05n.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpPost("mb51")]
+        public async Task<ActionResult<Unit>> AddNewmb51(AddMb51.Command command)
         {
             return await Mediator.Send(command);
         }

@@ -17,10 +17,14 @@ namespace Domain
         public string ArtNum { get; set; }
         public string ArticleDescription { get; set; }
         public string UoM { get; set; }
-        public int OrderedQty { get; set; }
-        public int ConfQty { get; set; }
-        public int PgiQty { get; set; }
-        public int QtyToDeliv { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal OrderedQty { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal ConfQty { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal PgiQty { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal QtyToDeliv { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal UnitPrice { get; set; }
