@@ -6,10 +6,10 @@ namespace Domain
     public class Mb51 
     {
         public long Id { get; set; }
-        public string EntryDate { get; set; }
-        public string PstngDate { get; set; }
+        public DateTime EntryDate { get; set; }
+        public DateTime PstngDate { get; set; }
         public string Time { get; set; }
-        public string DocDate { get; set; }
+        public DateTime DocDate { get; set; }
         public string ArtDoc { get; set; }
         public string Article { get; set; }
         public string ArticleDescription { get; set; }

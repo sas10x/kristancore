@@ -12,14 +12,14 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class DetailZva05n
+    public class DetailZmpq25b
     {
-        public class Query : IRequest<List<Zva05n>> 
+        public class Query : IRequest<List<Zmpq25b>> 
         {
             public string Article { get; set; }
          }
 
-        public class Handler : IRequestHandler<Query, List<Zva05n>>
+        public class Handler : IRequestHandler<Query, List<Zmpq25b>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -30,12 +30,11 @@ namespace Application.Inventory
                 _mapper = mapper;
             }
 
-            public async Task<List<Zva05n>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<Zmpq25b>> Handle(Query request, CancellationToken cancellationToken)
             {
-                    var nfp = await _context.Zva05n
-                        .Where(x => x.ArtNum == request.Article)
-                        .Where(x => x.SLoc == "8202")
-                        .Where(x => x.SType == "ZOR" ||  x.SType == "ZCAS" ||  x.SType == "ZINH" ||  x.SType == "FD")
+                    var nfp = await _context.Zmpq25b
+                        .Where(x => x.Article == request.Article)
+                        // .Where(x => x.SLoc == "8202")
                         .ToListAsync();  
                     return nfp;
                 }

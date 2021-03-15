@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210313091112_modify docdate model")]
+    partial class modifydocdatemodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,11 +288,11 @@ namespace Persistence.Migrations
                     b.Property<string>("Customer")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DocDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DocDate")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EntryDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("EntryDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GtrStatus")
                         .HasColumnType("nvarchar(max)");
@@ -304,8 +306,8 @@ namespace Persistence.Migrations
                     b.Property<string>("Name1")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PstngDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("PstngDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");

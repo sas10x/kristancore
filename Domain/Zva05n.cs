@@ -12,7 +12,7 @@ namespace Domain
         public string Site { get; set; }
         public string SLoc { get; set; }
         public string ShpTyp { get; set; }
-        public string Docdate { get; set; }
+        public DateTime Docdate { get; set; }
         public string ItemNum { get; set; }
         public string ArtNum { get; set; }
         public string ArticleDescription { get; set; }

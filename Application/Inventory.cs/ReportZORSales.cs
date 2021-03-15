@@ -12,7 +12,7 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class DetailZva05n
+    public class ReportZORSales
     {
         public class Query : IRequest<List<Zva05n>> 
         {
@@ -34,8 +34,9 @@ namespace Application.Inventory
             {
                     var nfp = await _context.Zva05n
                         .Where(x => x.ArtNum == request.Article)
-                        .Where(x => x.SLoc == "8202")
-                        .Where(x => x.SType == "ZOR" ||  x.SType == "ZCAS" ||  x.SType == "ZINH" ||  x.SType == "FD")
+                        .Where(x => x.Site == "8200")
+                        .Where(x => x.SType == "ZOR")
+                        // .Where(x => x.SType == "ZOR" ||  x.SType == "ZCAS" ||  x.SType == "ZINH" ||  x.SType == "FD")
                         .ToListAsync();  
                     return nfp;
                 }

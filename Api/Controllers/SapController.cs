@@ -78,5 +78,25 @@ namespace Api.Controllers
         {
             return await Mediator.Send(command);
         }
+        [HttpGet("zmpq25b/{article}")]
+        public async Task<ActionResult<List<Zmpq25b>>> ListMZmpq25b(string article)
+        {
+            return await Mediator.Send(new DetailZmpq25b.Query{Article = article});
+        }
+        [HttpGet("mb51/{article}")]
+        public async Task<ActionResult<List<Mb51>>> ListMb51(string article)
+        {
+            return await Mediator.Send(new DetailMb51.Query{Article = article});
+        }
+        [HttpGet("zva05n/{article}")]
+        public async Task<ActionResult<List<Zva05n>>> ListZva05n(string article)
+        {
+            return await Mediator.Send(new DetailZva05n.Query{Article = article});
+        }
+        [HttpGet("report/{article}")]
+        public async Task<ActionResult<List<Zva05n>>> ListReport(string article)
+        {
+            return await Mediator.Send(new ReportSales.Query{Article = article});
+        }
     }
 }
