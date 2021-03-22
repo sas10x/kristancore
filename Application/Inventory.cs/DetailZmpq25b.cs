@@ -34,7 +34,7 @@ namespace Application.Inventory
             {
                     var nfp = await _context.Zmpq25b
                         .Where(x => x.Article == request.Article)
-                        // .Where(x => x.SLoc == "8202")
+                        .Where(x => x.SLoc != "")
                         .ToListAsync();  
                     return nfp;
                 }

@@ -8,6 +8,9 @@ namespace Domain {
        
         public int y { get; set; }
         public int r { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal atp { get; set; }
+        public string article { get; set; }
     }
 
 }

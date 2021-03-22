@@ -12,20 +12,11 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class ReportPetsa
+    public class ReportManager
     {
         public class Query : IRequest<List<Bubble>> 
         {
-        //    public string To { get; set; }
-        //    public string From { get; set; }
-        public Query(string to, string from)
-            {
-                To = to;
-                From = from;
-            }
-            public string To { get; set; }
-            public string From { get; set; }
-           
+           public string Manager { get; set; }
          }
 
         public class Handler : IRequestHandler<Query, List<Bubble>>
@@ -42,7 +33,7 @@ namespace Application.Inventory
             public async Task<List<Bubble>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var report = await _context.Bubbles
-                    .FromSqlRaw("SELECT ArticleDescription AS name, ArtNum as article, ATP as atp,COUNT(ArtNum) AS y,Convert(int, SUM(ConfQty)) AS x,COUNT(ArtNum)+10 AS r FROM [STOCK10XCHANGE].[dbo].[Zva05n] INNER JOIN Zmpq25b ON Zva05n.ArtNum = Zmpq25b.Article WHERE Zmpq25b.Site='8200' And Zmpq25b.SLoc='' And Docdate BETWEEN @From AND @To  GROUP BY ArticleDescription,ArtNum,ATP",new SqlParameter("From", request.From),new SqlParameter("To", request.To))
+                    .FromSqlRaw("SELECT ArticleDescription AS name, ArtNum AS Article,  ATP as atp, COUNT(ArtNum) AS y,Convert(int, SUM(ConfQty)) AS x,COUNT(ArtNum)+10 AS r FROM [STOCK10XCHANGE].[dbo].[Zva05n] INNER JOIN Zmpq25b ON Zva05n.ArtNum = Zmpq25b.Article WHERE ArtNum IN (SELECT Article FROM dbo.Materials WHERE Manager=@Uno) AND Zmpq25b.Site=!'' GROUP BY ArticleDescription,ArtNum",new SqlParameter("Uno", request.Manager))
                     .ToListAsync();  
                      return report; 
                 }

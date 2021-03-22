@@ -131,14 +131,14 @@ namespace Api.Controllers
         //     return await Mediator.Send(new List.Query(limit, 
         //         offset, isGoing, isHost, startDate));
         // }
-        
-        // [HttpGet("report")]
-        // public async Task<ActionResult<List.Bubble>> List(string? to, 
-        //     string? from)
-        // {
-        //     return await Mediator.Send(new ReportPetsa.Query(to, 
-        //         from));
-        // }
+
+        [HttpGet("report/petsa")]
+        public async Task<ActionResult<List<Bubble>>> List(string to, 
+            string from)
+        {
+            return await Mediator.Send(new ReportPetsa.Query(to, 
+                from));
+        }
         [HttpPost("add/brand")]
         public async Task<ActionResult<Unit>> AddBrand (AddBrand.Command command)
         {
