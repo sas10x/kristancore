@@ -33,7 +33,7 @@ namespace Application.Inventory
             public async Task<List<Bubble>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var report = await _context.Bubbles
-                    .FromSqlRaw("SELECT ArticleDescription AS name, ArtNum AS Article,  ATP as atp, COUNT(ArtNum) AS y,Convert(int, SUM(ConfQty)) AS x,COUNT(ArtNum)+10 AS r FROM [STOCK10XCHANGE].[dbo].[Zva05n] INNER JOIN Zmpq25b ON Zva05n.ArtNum = Zmpq25b.Article WHERE ArtNum IN (SELECT Article FROM dbo.Materials WHERE Brand=@Uno) AND Zmpq25b.Site=!'' GROUP BY ArticleDescription,ArtNum",new SqlParameter("Uno", request.Brand))
+                    .FromSqlRaw("SELECT ArticleDescription AS name, ArtNum AS Article,  ATP as atp, COUNT(ArtNum) AS y,Convert(int, SUM(ConfQty)) AS x,COUNT(ArtNum)+10 AS r FROM [STOCK10XCHANGE].[dbo].[Zva05n] INNER JOIN Zmpq25b ON Zva05n.ArtNum = Zmpq25b.Article WHERE ArtNum IN (SELECT Article FROM dbo.Materials WHERE Brand=@Uno) AND Zmpq25b.Site!='' GROUP BY ArticleDescription,ArtNum,ATP",new SqlParameter("Uno", request.Brand))
                     .ToListAsync();  
                      return report; 
                 }

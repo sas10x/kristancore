@@ -124,6 +124,16 @@ namespace Api.Controllers
         {
             return await Mediator.Send(new ReportBubble.Query{Category = category});
         }
+        [HttpGet("report/brand/{brand}")]
+        public async Task<ActionResult<List<Bubble>>> ListBrand(string brand)
+        {
+            return await Mediator.Send(new ReportBrand.Query{Brand = brand});
+        }
+        [HttpGet("report/manager/{manager}")]
+        public async Task<ActionResult<List<Bubble>>> ListManager(string manager)
+        {
+            return await Mediator.Send(new ReportManager.Query{Manager = manager});
+        }
         // [HttpGet]
         // public async Task<ActionResult<List.ActivitiesEnvelope>> List(int? limit, 
         //     int? offset, bool isGoing, bool isHost, DateTime? startDate)
