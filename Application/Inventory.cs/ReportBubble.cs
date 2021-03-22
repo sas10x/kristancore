@@ -12,14 +12,14 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class ReportZORSales
+    public class ReportBubble
     {
-        public class Query : IRequest<List<Report>> 
+        public class Query : IRequest<List<Bubble>> 
         {
-            public string Article { get; set; }
+           public string Category { get; set; }
          }
 
-        public class Handler : IRequestHandler<Query, List<Report>>
+        public class Handler : IRequestHandler<Query, List<Bubble>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -30,14 +30,13 @@ namespace Application.Inventory
                 _mapper = mapper;
             }
 
-            public async Task<List<Report>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<Bubble>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var report = await _context.DateReports
-                    .FromSqlRaw("SELECT Docdate as Name,SUM(ConfQty) AS value FROM [STOCK10XCHANGE].[dbo].[Zva05n] WHERE (ArtNum=@Uno AND SType='ZOR') GROUP BY Docdate", new SqlParameter("Uno", request.Article))
+                var report = await _context.Bubbles
+                    .FromSqlRaw("SELECT ArticleDescription AS name, COUNT(ArtNum) AS y,Convert(int, SUM(ConfQty)) AS x,COUNT(ArtNum)+10 AS r FROM [STOCK10XCHANGE].[dbo].[Zva05n]  WHERE ArtNum IN (SELECT Article FROM dbo.Materials WHERE Category=@Uno) GROUP BY ArticleDescription",new SqlParameter("Uno", request.Category))
                     .ToListAsync();  
                      return report; 
                 }
-
             }
 
     }

@@ -44,6 +44,7 @@ namespace Application.Inventory
             public string Entrytime { get; set; }
             public string CCodeToBeBilled { get; set; }
             public string DistChan { get; set; }
+            public string Division { get; set; }
     
         }
         public class Handler : IRequestHandler<Command>
@@ -96,6 +97,7 @@ namespace Application.Inventory
                     Entrytime = request.Entrytime,
                     CCodeToBeBilled = request.CCodeToBeBilled,
                     DistChan = request.DistChan,
+                    Division = request.Division,
                     GtrStatus = "pending",
                 };
                  _context.Zva05n.Add(zva);

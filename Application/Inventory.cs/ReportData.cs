@@ -12,7 +12,7 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class ReportZORSales
+    public class ReportData
     {
         public class Query : IRequest<List<Report>> 
         {
@@ -33,7 +33,7 @@ namespace Application.Inventory
             public async Task<List<Report>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var report = await _context.DateReports
-                    .FromSqlRaw("SELECT Docdate as Name,SUM(ConfQty) AS value FROM [STOCK10XCHANGE].[dbo].[Zva05n] WHERE (ArtNum=@Uno AND SType='ZOR') GROUP BY Docdate", new SqlParameter("Uno", request.Article))
+                    .FromSqlRaw("SELECT Docdate as Name,SUM(ConfQty) AS value FROM [STOCK10XCHANGE].[dbo].[Zva05n] WHERE (ArtNum=@Uno AND SType='ZPOS') OR (ArtNum=@Uno AND SType='ZCAS') GROUP BY Docdate", new SqlParameter("Uno", request.Article))
                     .ToListAsync();  
                      return report; 
                 }

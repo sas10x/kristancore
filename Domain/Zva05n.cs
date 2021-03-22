@@ -45,6 +45,7 @@ namespace Domain
         public string Entrytime { get; set; }
         public string CCodeToBeBilled { get; set; }
         public string DistChan { get; set; }
+        public string Division { get; set; }
         public string GtrStatus { get; set; }
     }
 }

@@ -13,6 +13,7 @@ namespace Application.Inventory
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Barcode, o => o.MapFrom(s => s.Gtin))
             ;
+            
         }
     }
 }

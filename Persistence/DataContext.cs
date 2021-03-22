@@ -24,6 +24,15 @@ namespace Persistence
         public DbSet<Zva05n> Zva05n { get; set; }
         public DbSet<ActivityMb51> ActivitiesMb51 { get; set; }
         public DbSet<ActivityZva05n> ActivitiesZva05n { get; set; }
+        public DbSet<ReportSummary> Reports { get; set; }
+        public DbSet<Report> DateReports { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Status> Status { get; set; }
+        public DbSet<Manager> Managers { get; set; }
+
+        public DbSet<Bubble> Bubbles { get; set; }
+
         protected override void OnModelCreating (ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -34,7 +43,24 @@ namespace Persistence
                     new Value {Id = 3, Name = "Value 103"}
                 );
             builder.Entity<UserActivity>(x => x.HasKey(ua => new { ua.AppUserId, ua.ActivityId }));
-
+            builder
+            .Entity<ReportSummary>(
+                builder => {
+                    builder.HasNoKey();
+                }
+            );
+             builder
+            .Entity<Report>(
+                builder => {
+                    builder.HasNoKey();
+                }
+            );
+            builder
+            .Entity<Bubble>(
+                builder => {
+                    builder.HasNoKey();
+                }
+            );
             builder.Entity<UserActivity>()
                 .HasOne(u => u.AppUser)
                 .WithMany(a => a.UserActivities)

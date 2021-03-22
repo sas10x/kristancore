@@ -12,7 +12,7 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class ReportSales
+    public class ReportAll
     {
         public class Query : IRequest<List<Zva05n>> 
         {
@@ -32,12 +32,10 @@ namespace Application.Inventory
 
             public async Task<List<Zva05n>> Handle(Query request, CancellationToken cancellationToken)
             {
-                    var nfp = await _context.Zva05n
-                        .Where(x => x.ArtNum == request.Article)
-                        .Where(x => x.Site == "8200")
-                        .Where(x => x.SType == "ZCAS" ||  x.SType == "ZINH" ||  x.SType == "FD")
-                        .ToListAsync();  
-                    return nfp;
+                var report = await _context.Zva05n
+                    .Where(x => x.ArtNum == request.Article)
+                    .ToListAsync();  
+                     return report; 
                 }
 
             }

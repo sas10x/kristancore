@@ -93,10 +93,97 @@ namespace Api.Controllers
         {
             return await Mediator.Send(new DetailZva05n.Query{Article = article});
         }
-        [HttpGet("report/{article}")]
-        public async Task<ActionResult<List<Zva05n>>> ListReport(string article)
+        [HttpGet("report/data/{article}")]
+        public async Task<ActionResult<List<Report>>> ListReport(string article)
         {
-            return await Mediator.Send(new ReportSales.Query{Article = article});
+            return await Mediator.Send(new ReportData.Query{Article = article});
         }
+        [HttpGet("report/{article}")]
+        public async Task<ActionResult<ReportSummary>> Report(string article)
+        {
+            return await Mediator.Send(new ReportOverview.Query{Article = article});
+        }
+        [HttpGet("report/zor/{article}")]
+        public async Task<ActionResult<List<Report>>> ListZor(string article)
+        {
+            return await Mediator.Send(new ReportZORSales.Query{Article = article});
+        }
+        [HttpGet("report/zqt/{article}")]
+        public async Task<ActionResult<List<Report>>> ListZqt(string article)
+        {
+            return await Mediator.Send(new ReportZQTSales.Query{Article = article});
+        } 
+        [HttpGet("report/all/{article}")]
+        public async Task<ActionResult<List<Zva05n>>> ListAll(string article)
+        {
+            return await Mediator.Send(new ReportAll.Query{Article = article});
+        } 
+      
+        [HttpGet("report/bubble/{category}")]
+        public async Task<ActionResult<List<Bubble>>> ListBubble(string category)
+        {
+            return await Mediator.Send(new ReportBubble.Query{Category = category});
+        }
+        // [HttpGet]
+        // public async Task<ActionResult<List.ActivitiesEnvelope>> List(int? limit, 
+        //     int? offset, bool isGoing, bool isHost, DateTime? startDate)
+        // {
+        //     return await Mediator.Send(new List.Query(limit, 
+        //         offset, isGoing, isHost, startDate));
+        // }
+        
+        // [HttpGet("report")]
+        // public async Task<ActionResult<List.Bubble>> List(string? to, 
+        //     string? from)
+        // {
+        //     return await Mediator.Send(new ReportPetsa.Query(to, 
+        //         from));
+        // }
+        [HttpPost("add/brand")]
+        public async Task<ActionResult<Unit>> AddBrand (AddBrand.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpPost("add/category")]
+        public async Task<ActionResult<Unit>> AddCategory (AddCategory.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpPost("add/status")]
+        public async Task<ActionResult<Unit>> AddStatus (AddStatus.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+        [HttpPost("add/manager")]
+        public async Task<ActionResult<Unit>> AddManager (AddManager.Command command)
+        {
+            return await Mediator.Send(command);
+        }
+
+        [HttpGet("get/brand")]
+        public async Task<ActionResult<List<Brand>>> ListBrand()
+        {
+            return await Mediator.Send(new GetBrand.Query());
+        }
+        [HttpGet("get/manager")]
+        public async Task<ActionResult<List<Manager>>> ListManager()
+        {
+            return await Mediator.Send(new GetManager.Query());
+        }
+        [HttpGet("get/status")]
+        public async Task<ActionResult<List<Status>>> ListStatus()
+        {
+            return await Mediator.Send(new GetStatus.Query());
+        }
+        [HttpGet("get/category/")]
+        public async Task<ActionResult<List<Category>>> ListCategories()
+        {
+            return await Mediator.Send(new GetCategory.Query());
+        }
+        // [HttpGet("report/all/{article}")]
+        // public async Task<ActionResult<List<Zva05n>>> ListAll(string article)
+        // {
+        //     return await Mediator.Send(new ReportAll.Query{Article = article});
+        // } 
     }
 }
