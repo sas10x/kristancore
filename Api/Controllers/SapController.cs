@@ -98,6 +98,11 @@ namespace Api.Controllers
         {
             return await Mediator.Send(new ReportData.Query{Article = article});
         }
+       [HttpGet("report/move/{article}")]
+        public async Task<ActionResult<List<ReportBar>>> ListBarReport(string article)
+        {
+            return await Mediator.Send(new ReportMove.Query{Article = article});
+        }
         [HttpGet("report/{article}")]
         public async Task<ActionResult<ReportSummary>> Report(string article)
         {
@@ -149,6 +154,11 @@ namespace Api.Controllers
             return await Mediator.Send(new ReportPetsa.Query(to, 
                 from));
         }
+        [HttpGet("pendingzva")]
+        public async Task<ActionResult<List<Zva05n>>> PendingSales()
+        {
+            return await Mediator.Send(new PendingZva.Query());
+        }
         [HttpPost("add/brand")]
         public async Task<ActionResult<Unit>> AddBrand (AddBrand.Command command)
         {
@@ -195,5 +205,10 @@ namespace Api.Controllers
         // {
         //     return await Mediator.Send(new ReportAll.Query{Article = article});
         // } 
+        [HttpGet("report/total/{article}")]
+        public async Task<ActionResult<List<Report>>> ListReportTotal(string article)
+        {
+            return await Mediator.Send(new ReportTotalSales.Query{Article = article});
+        }
     }
 }

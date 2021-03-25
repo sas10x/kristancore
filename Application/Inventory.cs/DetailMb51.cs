@@ -32,13 +32,20 @@ namespace Application.Inventory
 
             public async Task<List<Mb51>> Handle(Query request, CancellationToken cancellationToken)
             {
-                    var nfp = await _context.Mb51
-                        .Where(x => x.Article == request.Article)
-                        .ToListAsync();  
-                    return nfp;
-                }
-
+                var report = await _context.Mb51
+                    .FromSqlRaw("SELECT * FROM [STOCK10XCHANGE].[dbo].[Mb51] WHERE Article=@Uno AND Username LIKE 'DC8200%'", new SqlParameter("Uno", request.Article))
+                    .ToListAsync();  
+                     return report; 
             }
+                
+                    // var nfp = await _context.Mb51
+                    //     .Where(x => x.Article == request.Article)
+                    //     .Where(x => x.Username.Contains("DC8200"))
+                    //     .ToListAsync();  
+                    // return nfp;
+                
+
+        }
 
     }
 }

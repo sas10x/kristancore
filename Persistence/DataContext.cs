@@ -32,6 +32,7 @@ namespace Persistence
         public DbSet<Manager> Managers { get; set; }
 
         public DbSet<Bubble> Bubbles { get; set; }
+        public DbSet<ReportBar> ReportBars { get; set; }
 
         protected override void OnModelCreating (ModelBuilder builder)
         {
@@ -60,6 +61,14 @@ namespace Persistence
                 builder => {
                     builder.HasNoKey();
                 }
+            
+            );
+            builder
+            .Entity<ReportBar>(
+                builder => {
+                    builder.HasNoKey();
+                }
+            
             );
             builder.Entity<UserActivity>()
                 .HasOne(u => u.AppUser)

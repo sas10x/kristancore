@@ -12,14 +12,14 @@ using Persistence;
 
 namespace Application.Inventory
 {
-    public class DetailZva05n
+    public class ReportMove
     {
-        public class Query : IRequest<List<Zva05n>> 
+        public class Query : IRequest<List<ReportBar>> 
         {
             public string Article { get; set; }
          }
 
-        public class Handler : IRequestHandler<Query, List<Zva05n>>
+        public class Handler : IRequestHandler<Query, List<ReportBar>>
         {
             private readonly DataContext _context;
             private readonly IMapper _mapper;
@@ -30,13 +30,12 @@ namespace Application.Inventory
                 _mapper = mapper;
             }
 
-            public async Task<List<Zva05n>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<ReportBar>> Handle(Query request, CancellationToken cancellationToken)
             {
-                    var nfp = await _context.Zva05n
-                        .Where(x => x.ArtNum == request.Article)
-                        .Where(x => x.SType == "ZOR" ||  x.SType == "ZCAS" ||  x.SType == "ZINH" ||  x.SType == "FD")
-                        .ToListAsync();  
-                    return nfp;
+                var report = await _context.ReportBars
+                    .FromSqlRaw("SELECT PstngDate,MvT,Convert(int, Quantity) as Quantity,SLoc FROM dbo.Mb51 WHERE Article=@Uno AND Username LIKE 'DC8200%' GROUP BY PstngDate, MvT,SLoc, Quantity", new SqlParameter("Uno", request.Article))
+                    .ToListAsync();  
+                     return report; 
                 }
 
             }
