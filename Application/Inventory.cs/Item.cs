@@ -36,20 +36,17 @@ namespace Application.Inventory
                 
                 if (isNumeric)
                 {   
-                    var nfp = await _context.Zmpq25b
+                    var nfp = await _context.Materials
                         .Where(sap => sap.Article.Contains(request.Search)) 
-                        .Where(site => site.SLoc == "")
                         .ToListAsync();  
-                    // return nfp;
-                    return _mapper.Map<List<Zmpq25b>, List<ItemDto>>(nfp);
+                    return _mapper.Map<List<Material>, List<ItemDto>>(nfp);
                 }
 
                 else {
-                    var nfp = await _context.Zmpq25b
+                    var nfp = await _context.Materials
                         .Where(sap => sap.Description.Contains(request.Search)) 
-                        .Where(site => site.SLoc == "")
                         .ToListAsync();  
-                    return _mapper.Map<List<Zmpq25b>, List<ItemDto>>(nfp);
+                    return _mapper.Map<List<Material>, List<ItemDto>>(nfp);
                 }
 
             }

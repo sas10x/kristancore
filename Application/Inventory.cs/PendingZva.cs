@@ -33,6 +33,7 @@ namespace Application.Inventory
             public async Task<List<Zva05n>> Handle(Query request, CancellationToken cancellationToken)
             {
                     var nfp = await _context.Zva05n
+                        .Where(x => x.SType == "ZOR" ||  x.SType == "ZCAS" ||  x.SType == "ZINH" ||  x.SType == "FD")
                         .Where(x => x.DeliveryStatus == "Pending Delivery" || x.DeliveryStatus == "Partially Delivered")
                         .ToListAsync();  
                     return nfp;

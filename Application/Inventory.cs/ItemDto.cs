@@ -5,5 +5,6 @@ namespace Application.Inventory
         public string Article { get; set; }
         public string Barcode { get; set; }
         public string Description { get; set; }
+        public string Uom { get; set; }
     }
 }

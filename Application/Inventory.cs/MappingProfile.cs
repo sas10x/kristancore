@@ -8,10 +8,11 @@ namespace Application.Inventory
     {
         public MappingProfile()
         {
-            CreateMap<Zmpq25b, ItemDto>()
+            CreateMap<Material, ItemDto>()
                 .ForMember(d => d.Article, o => o.MapFrom(s => s.Article))
                 .ForMember(d => d.Description, o => o.MapFrom(s => s.Description))
                 .ForMember(d => d.Barcode, o => o.MapFrom(s => s.Gtin))
+                .ForMember(d => d.Uom, o => o.MapFrom(s => s.Uom))
             ;
             
         }
